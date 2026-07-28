@@ -80,8 +80,8 @@ const Home = () => {
               <div className="hero-content-left">
                 <div className="hero-badge">🌟 Islamic Education Platform</div>
                 <h1 className="hero-title">
-                  <span className="hero-title-line">Learn Islam</span>
-                  <span className="hero-title-line hero-title-accent">The Smart Way</span>
+                  <span className="hero-title-line"></span>
+                  <span className="hero-title-line hero-title-accent"> in The Smart Way</span>
                 </h1>
                 <p className="hero-desc">
                   An interactive Islamic education platform for students. Master Quran, Hadith, Fiqh, and Sirah through live classes, resources, tests, and games — all in one place.
@@ -211,7 +211,7 @@ const Home = () => {
             <span className="section-badge">📖 Our Curriculum</span>
             <h2>Explore Islamic Subjects</h2>
             <p className="section-desc">
-              Dive deep into the rich traditions of Islamic knowledge with our comprehensive subject offerings
+              Discover a wide range of Islamic subjects designed to enhance your understanding and spiritual growth
             </p>
           </div>
           <div className="row">

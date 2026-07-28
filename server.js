@@ -15,25 +15,14 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
-// CORS configuration
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5000',
-  'https://smartlearning-backend-ljpk-git-main-jafar6.vercel.app',
-  'https://smartlearning-frontend.vercel.app',
-  'https://smartlearning-api-5oe0.onrender.com',
-  'https://smartlearning-backend-2.onrender.com',
-  'https://smartlearning-backend-gz6h.vercel.app',
-  'https://smartlearning-backend-j2h4.vercel.app',
-];
-
+// CORS configuration - allow all origins for production flexibility
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, etc.)
-    if (!origin || allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+    // Allow requests with no origin (mobile apps, curl, etc.) or any origin in production
+    if (!origin || process.env.NODE_ENV === 'development') {
       callback(null, true);
     } else {
-      // In production, still allow all origins for flexibility
+      // Allow all origins in production for maximum compatibility
       callback(null, true);
     }
   },
