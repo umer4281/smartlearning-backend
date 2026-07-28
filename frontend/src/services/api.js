@@ -1,23 +1,14 @@
 import axios from 'axios';
 
-// Use environment variable for production (set in Vercel/Render dashboard)
-// Fall back to localhost for development
+// Get the API base URL
 const getBaseUrl = () => {
-  // If REACT_APP_API_URL is set (e.g., in Vercel environment variables), use it
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
   const hostname = window.location.hostname;
-  // In development, frontend runs on port 3000, backend on 5000
+  // Development - localhost
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     return 'http://localhost:5000/api';
   }
-  // If the page is loaded over HTTPS (Vercel production), use Render backend
-  if (window.location.protocol === 'https:') {
-    return 'https://smartlearning-backend-2.onrender.com/api';
-  }
-  // When accessed from another device (e.g., mobile phone on same network)
-  return `http://${hostname}:5000/api`;
+  // Production - always use Render backend
+  return 'https://smartlearning-backend-2.onrender.com/api';
 };
 
 const API_URL = getBaseUrl();
