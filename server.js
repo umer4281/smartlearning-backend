@@ -45,26 +45,6 @@ app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Add a seed endpoint for admin user creation (useful for Render deployment)
-app.post('/api/seed/admin', async (req, res) => {
-  try {
-    const User = require('./models/User');
-    const existingAdmin = await User.findOne({ email: 'wakoumer4@gmail.com' });
-    if (existingAdmin) {
-      return res.json({ message: 'Admin user already exists', email: 'wakoumer4@gmail.com' });
-    }
-    await User.create({
-      name: 'Admin',
-      email: 'wakoumer4@gmail.com',
-      password: 'Umer@123456',
-      role: 'admin',
-    });
-    res.status(201).json({ message: 'Admin user created successfully', email: 'wakoumer4@gmail.com', password: 'Umer@123456' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/resources', require('./routes/resourceRoutes'));
@@ -153,8 +133,33 @@ io.on('connection', (socket) => {
   });
 });
 
+// Auto-seed admin user on startup
+const seedAdmin = async () => {
+  try {
+    const User = require('./models/User');
+    const existingAdmin = await User.findOne({ email: 'wakoumer4@gmail.com' });
+    if (!existingAdmin) {
+      await User.create({
+        name: 'Admin',
+        email: 'wakoumer4@gmail.com',
+        password: 'Umer@123456',
+        role: 'admin',
+      });
+      console.log('✅ Admin account created automatically');
+      console.log('   Email: wakoumer4@gmail.com');
+      console.log('   Password: Umer@123456');
+    } else {
+      console.log('✅ Admin account already exists');
+    }
+  } catch (error) {
+    console.log('⚠️ Could not auto-seed admin (DB may not be ready yet)');
+  }
+};
+
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
+server.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  // Wait a moment for DB connection to fully establish, then seed admin
+  setTimeout(seedAdmin, 2000);
 });
