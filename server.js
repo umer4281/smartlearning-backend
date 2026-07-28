@@ -24,6 +24,7 @@ const allowedOrigins = [
   'https://smartlearning-api-5oe0.onrender.com',
   'https://smartlearning-backend-2.onrender.com',
   'https://smartlearning-backend-gz6h.vercel.app',
+  'https://smartlearning-backend-j2h4.vercel.app',
 ];
 
 const corsOptions = {
