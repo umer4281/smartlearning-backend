@@ -8,7 +8,7 @@ const getBaseUrl = () => {
     return 'http://localhost:5000/api';
   }
   // Production - always use Render backend
-  return 'https://smartlearning-backend-1.onrender.com/api';
+  return 'https://smartlearning-backend-i6nu.onrender.com/api';
 };
 
 const API_URL = getBaseUrl();
