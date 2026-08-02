@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const fs2 = require('fs');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
 // Load env vars
@@ -43,7 +44,29 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     env: process.env.NODE_ENV || 'development',
     mongoUri: process.env.MONGO_URI ? 'Set' : 'Not Set',
+    dbConnected: mongoose.connection.readyState === 1,
   });
+});
+
+// Manual seed admin route
+app.get('/api/seed-admin', async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const existingAdmin = await User.findOne({ email: 'wakoumer4@gmail.com' });
+    if (!existingAdmin) {
+      await User.create({
+        name: 'Admin',
+        email: 'wakoumer4@gmail.com',
+        password: 'Umer@123456',
+        role: 'admin',
+      });
+      res.json({ success: true, message: 'Admin account created! Email: wakoumer4@gmail.com, Password: Umer@123456' });
+    } else {
+      res.json({ success: true, message: 'Admin account already exists! Email: wakoumer4@gmail.com, Password: Umer@123456' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error creating admin: ' + error.message });
+  }
 });
 
 // Routes
@@ -55,9 +78,21 @@ app.use('/api/admin', require('./routes/adminRoutes'));
 // Serve uploaded files
 app.use('/uploads', express.static(uploadsDir));
 
-// Auto-seed admin user on startup
+// Auto-seed admin user on startup - wait for DB connection
 const seedAdmin = async () => {
   try {
+    // Wait for DB connection (up to 10 seconds)
+    let retries = 0;
+    while (mongoose.connection.readyState !== 1 && retries < 10) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      retries++;
+    }
+    
+    if (mongoose.connection.readyState !== 1) {
+      console.log('Could not seed admin: DB not connected');
+      return;
+    }
+    
     const User = require('./models/User');
     const existingAdmin = await User.findOne({ email: 'wakoumer4@gmail.com' });
     if (!existingAdmin) {
@@ -82,5 +117,6 @@ app.listen(PORT, async () => {
   console.log('Server running on port ' + PORT);
   console.log('Environment: ' + (process.env.NODE_ENV || 'development'));
   console.log('MongoDB URI: ' + (process.env.MONGO_URI ? 'Configured' : 'NOT SET'));
-  setTimeout(seedAdmin, 2000);
+  // Seed admin after server starts
+  seedAdmin();
 });
