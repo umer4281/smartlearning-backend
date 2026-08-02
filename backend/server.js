@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs2 = require('fs');
 const connectDB = require('./config/db');
 
 // Load env vars
@@ -12,16 +13,10 @@ connectDB();
 
 const app = express();
 
-// CORS configuration - allow all origins for production flexibility
+// CORS configuration - allow all origins
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, etc.) or any origin in production
-    if (!origin || process.env.NODE_ENV === 'development') {
-      callback(null, true);
-    } else {
-      // Allow all origins in production for maximum compatibility
-      callback(null, true);
-    }
+    callback(null, true);
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -30,9 +25,26 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle preflight requests
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs2.existsSync(uploadsDir)) {
+  fs2.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Health check route
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV || 'development',
+    mongoUri: process.env.MONGO_URI ? 'Set' : 'Not Set',
+  });
+});
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -41,7 +53,7 @@ app.use('/api/tests', require('./routes/testRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(uploadsDir));
 
 // Auto-seed admin user on startup
 const seedAdmin = async () => {
@@ -55,21 +67,20 @@ const seedAdmin = async () => {
         password: 'Umer@123456',
         role: 'admin',
       });
-      console.log('✅ Admin account created automatically');
-      console.log('   Email: wakoumer4@gmail.com');
-      console.log('   Password: Umer@123456');
+      console.log('Admin account created automatically');
     } else {
-      console.log('✅ Admin account already exists');
+      console.log('Admin account already exists');
     }
   } catch (error) {
-    console.log('⚠️ Could not auto-seed admin (DB may not be ready yet)');
+    console.log('Could not auto-seed admin:', error.message);
   }
 };
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
-  // Wait a moment for DB connection to fully establish, then seed admin
+  console.log('Server running on port ' + PORT);
+  console.log('Environment: ' + (process.env.NODE_ENV || 'development'));
+  console.log('MongoDB URI: ' + (process.env.MONGO_URI ? 'Configured' : 'NOT SET'));
   setTimeout(seedAdmin, 2000);
 });
