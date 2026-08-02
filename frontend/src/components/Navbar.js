@@ -57,7 +57,6 @@ const Navbar = () => {
         { path: '/classroom', label: 'Classroom', icon: '🎥' },
         { path: '/resources', label: 'Resources', icon: '📁' },
         { path: '/tests', label: 'Tests', icon: '📝' },
-        { path: '/quran', label: 'Quran', icon: '📖' },
         { path: '/games', label: 'Games', icon: '🎮' },
         ...(isAdmin ? [{ path: '/admin', label: 'Admin', icon: '⚙️' }] : []),
       ]

@@ -59,7 +59,7 @@ export const authAPI = {
 export const resourceAPI = {
   upload: (formData) =>
     api.post('/resources', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { 'Content-Type': undefined },
     }),
   getAll: (category) => api.get('/resources', { params: category ? { category } : {} }),
   download: (id) => api.get(`/resources/${id}/download`, { responseType: 'blob' }),
@@ -87,16 +87,6 @@ export const adminAPI = {
   getAllTestResults: () => api.get('/admin/test-results'),
   deleteResource: (id) => api.delete(`/admin/resources/${id}`),
   deleteTest: (id) => api.delete(`/admin/tests/${id}`),
-};
-
-// Quran API
-export const quranAPI = {
-  getProgress: () => api.get('/quran/progress'),
-  updatePage: (page) => api.put('/quran/progress/page', { page }),
-  markPageComplete: (page) => api.post('/quran/progress/complete', { page }),
-  getStats: () => api.get('/quran/progress/stats'),
-  logError: (data) => api.post('/quran/errors', data),
-  getErrorStats: () => api.get('/quran/errors/stats'),
 };
 
 export default api;

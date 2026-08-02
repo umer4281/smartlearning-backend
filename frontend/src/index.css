@@ -1,4 +1,4 @@
-/* ===== BASE RESET & TYPOGRAPHY ===== */
+﻿/* ===== BASE RESET & TYPOGRAPHY ===== */
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -94,6 +94,191 @@ code {
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* ===== DASHBOARD ===== */
+.dashboard-welcome {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  border-radius: 24px;
+  padding: 2.5rem;
+  color: #fff;
+  box-shadow: 0 8px 40px rgba(15, 52, 96, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-welcome::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dashboard-welcome::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dashboard-welcome h2 {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-welcome p {
+  margin: 0;
+  opacity: 0.85;
+  position: relative;
+  z-index: 1;
+  font-size: 1.05rem;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--card-gradient, linear-gradient(90deg, #667eea, #764ba2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-card:hover::before {
+  opacity: 1;
+}
+
+.dashboard-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.dashboard-card h5 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1a1a2e;
+}
+
+.dashboard-card p {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+/* Admin Dashboard Header */
+.admin-dashboard-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  border-radius: 24px;
+  padding: 2.5rem;
+  color: #fff;
+  box-shadow: 0 8px 40px rgba(15, 52, 96, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-dashboard-header::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.admin-dashboard-header h2 {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.admin-dashboard-header p {
+  margin: 0;
+  opacity: 0.85;
+  position: relative;
+  z-index: 1;
+  font-size: 1.05rem;
+}
+
+/* Admin stat cards */
+.admin-stat-card {
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.admin-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  opacity: 0.1;
+  background: var(--stat-color, #667eea);
+  pointer-events: none;
+}
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease both;
+}
+
+.fade-in-up:nth-child(1) { animation-delay: 0.1s; }
+.fade-in-up:nth-child(2) { animation-delay: 0.2s; }
+.fade-in-up:nth-child(3) { animation-delay: 0.3s; }
+.fade-in-up:nth-child(4) { animation-delay: 0.4s; }
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
@@ -1252,67 +1437,6 @@ code {
   margin: 0;
 }
 
-/* ===== DASHBOARD ===== */
-.dashboard-welcome {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  padding: 2.5rem;
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-
-.dashboard-welcome::before {
-  content: '📚';
-  position: absolute;
-  right: -20px;
-  bottom: -20px;
-  font-size: 10rem;
-  opacity: 0.1;
-}
-
-.dashboard-welcome h2 {
-  font-weight: 700;
-  font-size: 1.8rem;
-}
-
-.dashboard-welcome p {
-  opacity: 0.9;
-  font-size: 1.1rem;
-}
-
-.dashboard-card {
-  background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-  height: 100%;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-}
-
-.dashboard-card .icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.dashboard-card h5 {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #1a1a2e;
-}
-
-.dashboard-card p {
-  color: #6c757d;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
 /* ===== STATS CARDS ===== */
 .stat-card {
   border-radius: 16px;
@@ -2412,434 +2536,6 @@ code {
   }
 }
 
-/* ===== QURAN READING PAGE ===== */
-.quran-page {
-  min-height: calc(100vh - 76px);
-  background: linear-gradient(180deg, #f8fdfa 0%, #f0f7f4 100%);
-}
-
-.quran-reader {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-}
-
-/* Navigation */
-.quran-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(15, 78, 58, 0.06);
-}
-
-.quran-nav-left {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.quran-nav-btn {
-  background: linear-gradient(135deg, #0f4e3a, #1a6b50);
-  color: white;
-  border: none;
-  padding: 0.5rem 1.1rem;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quran-nav-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(15, 78, 58, 0.2);
-}
-
-.quran-nav-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.quran-page-input {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  color: #5a7a6a;
-  font-weight: 500;
-}
-
-.quran-page-input input {
-  width: 60px;
-  text-align: center;
-  border: 1px solid rgba(15, 78, 58, 0.15);
-  border-radius: 8px;
-  padding: 0.3rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #0a2e22;
-  outline: none;
-}
-
-.quran-page-input input:focus {
-  border-color: #0f4e3a;
-  box-shadow: 0 0 0 2px rgba(15, 78, 58, 0.1);
-}
-
-.quran-chapter-info {
-  text-align: right;
-}
-
-.quran-chapter-name {
-  display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #0a2e22;
-}
-
-.quran-verse-range {
-  font-size: 0.75rem;
-  color: #7a9a8a;
-}
-
-/* Reading Area */
-.quran-reading-area {
-  background: white;
-  border-radius: 24px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(15, 78, 58, 0.04);
-  min-height: 400px;
-}
-
-/* Loading / Error States */
-.quran-loading,
-.quran-error,
-.quran-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-  text-align: center;
-  color: #5a7a6a;
-}
-
-.quran-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(15, 78, 58, 0.1);
-  border-top-color: #0f4e3a;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.quran-error-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.quran-retry-btn {
-  background: #0f4e3a;
-  color: white;
-  border: none;
-  padding: 0.5rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 600;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quran-retry-btn:hover {
-  background: #1a6b50;
-}
-
-/* Quran Text */
-.quran-text-container {
-  direction: rtl;
-  text-align: justify;
-}
-
-.bismillah {
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-  color: #0a2e22;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(15, 78, 58, 0.06);
-  font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
-}
-
-.quran-verse {
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.verse-number {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(15, 78, 58, 0.06), rgba(212, 168, 67, 0.06));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  color: #0f4e3a;
-  font-weight: 700;
-  border: 1px solid rgba(15, 78, 58, 0.08);
-}
-
-.verse-words {
-  flex: 1;
-  line-height: 2.2;
-  font-size: 1.6rem;
-  color: #1a2e26;
-  font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', 'Noto Naskh Arabic', serif;
-}
-
-.quran-word {
-  display: inline;
-  transition: all 0.15s ease;
-  cursor: default;
-  padding: 0.1rem 0.05rem;
-  border-radius: 4px;
-}
-
-.quran-word.current {
-  color: #2563eb;
-  background: rgba(37, 99, 235, 0.08);
-  font-weight: 700;
-  border-bottom: 2px solid #2563eb;
-}
-
-.quran-word.wrong {
-  color: #dc2626;
-  background: rgba(220, 38, 38, 0.08);
-  text-decoration: underline wavy #dc2626;
-}
-
-.quran-word.recited {
-  color: #059669;
-}
-
-/* Recitation Controls */
-.quran-controls {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(15, 78, 58, 0.06);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.quran-controls-left {
-  flex: 1;
-  min-width: 150px;
-}
-
-.quran-word-counter {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.counter-label {
-  font-size: 0.7rem;
-  color: #7a9a8a;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.counter-value {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #0a2e22;
-}
-
-.counter-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(15, 78, 58, 0.08);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.counter-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #0f4e3a, #1a6b50);
-  border-radius: 10px;
-  transition: width 0.3s ease;
-}
-
-.quran-controls-right {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.quran-record-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(135deg, #0f4e3a, #1a6b50);
-  color: white;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 14px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.quran-record-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(15, 78, 58, 0.2);
-}
-
-.quran-record-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.quran-record-btn.recording {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
-}
-
-.record-icon {
-  font-size: 1.1rem;
-}
-
-.quran-complete-btn {
-  background: linear-gradient(135deg, #d4a843, #b8862a);
-  color: #0a2e22;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.quran-complete-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 168, 67, 0.3);
-}
-
-.quran-speech-warning {
-  font-size: 0.8rem;
-  color: #d97706;
-  background: rgba(217, 119, 6, 0.08);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-weight: 500;
-}
-
-.quran-speech-error {
-  width: 100%;
-  font-size: 0.8rem;
-  color: #dc2626;
-  background: rgba(220, 38, 38, 0.06);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  text-align: center;
-}
-
-/* Responsive */
-@media (max-width: 767.98px) {
-  .quran-reading-area {
-    padding: 1.5rem 1rem;
-  }
-
-  .verse-words {
-    font-size: 1.3rem;
-    line-height: 2;
-  }
-
-  .bismillah {
-    font-size: 1.5rem;
-  }
-
-  .quran-nav {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .quran-nav-left {
-    justify-content: center;
-  }
-
-  .quran-chapter-info {
-    text-align: center;
-  }
-
-  .quran-controls {
-    flex-direction: column;
-  }
-
-  .quran-controls-right {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 575.98px) {
-  .quran-reading-area {
-    padding: 1rem 0.75rem;
-    border-radius: 16px;
-  }
-
-  .verse-words {
-    font-size: 1.1rem;
-  }
-
-  .verse-number {
-    width: 26px;
-    height: 26px;
-    font-size: 0.65rem;
-  }
-
-  .quran-record-btn,
-  .quran-complete-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
-  }
-
-  .quran-record-btn {
-    flex: 1;
-    justify-content: center;
-  }
-}
-
 /* ===== GAMES PAGE - Names of Allah Memory Game ===== */
 .games-page {
   min-height: calc(100vh - 76px);
@@ -3484,8 +3180,8 @@ code {
 /* Image Gallery Grid */
 .image-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
 }
 
 .gallery-card {
@@ -3507,13 +3203,13 @@ code {
 .gallery-img-wrapper {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 260px;
   overflow: hidden;
   background: #f0f0f0;
 }
 
 .gallery-img-wrapper.img-fallback::after {
-  content: '🖼️';
+  content: 'ðŸ–¼ï¸';
   font-size: 3rem;
   position: absolute;
   top: 50%;
@@ -3607,6 +3303,192 @@ code {
 .gallery-delete-btn:hover {
   background: #dc3545;
   transform: scale(1.1);
+}
+
+/* ===== PDF GALLERY ===== */
+.pdf-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+.pdf-gallery-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.pdf-gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
+}
+
+.pdf-gallery-thumb {
+  position: relative;
+  height: 240px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pdf-thumb-icon {
+  font-size: 5rem;
+  color: white;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.pdf-gallery-card:hover .pdf-thumb-icon {
+  transform: scale(1.15);
+}
+
+.pdf-thumb-glow {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.pdf-gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pdf-gallery-card:hover .pdf-gallery-overlay {
+  opacity: 1;
+}
+
+.pdf-view-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #4f46e5;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+.pdf-gallery-card:hover .pdf-view-icon {
+  transform: translateY(0);
+}
+
+.pdf-gallery-info {
+  padding: 1rem;
+}
+
+.pdf-gallery-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+  color: #0a2e22;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdf-gallery-desc {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin: 0 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pdf-gallery-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.pdf-gallery-size {
+  font-size: 0.75rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.pdf-gallery-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #4f46e5;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pdf-gallery-download:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Responsive PDF Gallery */
+@media (max-width: 768px) {
+  .pdf-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .pdf-gallery-thumb {
+    height: 180px;
+  }
+
+  .pdf-thumb-icon {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .pdf-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .pdf-gallery-thumb {
+    height: 160px;
+  }
+
+  .pdf-thumb-icon {
+    font-size: 3.5rem;
+  }
+
+  .pdf-view-icon {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* Resource Cards (List/Card View) */
@@ -3760,12 +3642,12 @@ code {
 /* Responsive */
 @media (max-width: 768px) {
   .image-gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 0.75rem;
   }
 
   .gallery-img-wrapper {
-    height: 140px;
+    height: 200px;
   }
 
   .preview-modal {
@@ -3804,4 +3686,317 @@ code {
   background: white;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== JITSI MEET CLASSROOM ===== */
+.jitsi-container {
+  background: white;
+  border-radius: 24px;
+  padding: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(15, 78, 58, 0.04);
+  min-height: 600px;
+  position: relative;
+}
+
+/* Hidden state â€” the container stays mounted (so the ref is valid) but is invisible */
+.jitsi-container-hidden {
+  display: none;
+}
+
+.jitsi-meet-frame {
+  width: 100%;
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0a2e22;
+}
+
+.jitsi-meet-frame iframe {
+  border: none;
+  border-radius: 16px;
+}
+
+.join-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.join-features span {
+  font-size: 0.8rem;
+  color: #0f4e3a;
+  background: rgba(15, 78, 58, 0.06);
+  padding: 0.4rem 0.8rem;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+@media (max-width: 767.98px) {
+  .jitsi-container {
+    padding: 0.5rem;
+    min-height: 400px;
+  }
+
+  .jitsi-meet-frame {
+    height: 400px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .jitsi-container {
+    min-height: 350px;
+  }
+
+  .jitsi-meet-frame {
+    height: 350px;
+  }
+
+  .join-features {
+    gap: 0.3rem;
+  }
+
+  .join-features span {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+/* ===== EXAM / TEST RADIO BUTTONS ===== */
+.exam-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exam-option:hover {
+  background: #e9ecef;
+  border-color: #667eea;
+}
+
+.exam-option:has(.exam-radio:checked) {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+}
+
+.exam-radio {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #667eea;
+  flex-shrink: 0;
+}
+
+.exam-radio:checked {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.exam-option-label {
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+/* ===== TEST TIMER ===== */
+.test-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.test-timer-icon {
+  font-size: 1.2rem;
+}
+
+.test-timer-text {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+.test-timer-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+  animation: timer-pulse 1s ease-in-out infinite;
+}
+
+.test-timer-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  animation: timer-pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ===== ANSWER REVIEW SECTION ===== */
+.review-question-card {
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.review-question-card.review-correct {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.review-question-card.review-wrong {
+  background: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.review-question-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.review-question-header h6 {
+  font-weight: 600;
+  color: #1a1a2e;
+  flex: 1;
+  min-width: 200px;
+}
+
+.review-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.review-badge.badge-correct {
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+
+.review-badge.badge-wrong {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+
+.review-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.review-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.review-option-correct {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.review-option-wrong {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.review-option-selected-correct {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.review-option-text {
+  font-size: 0.95rem;
+  color: #333;
+  flex: 1;
+}
+
+.review-option-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.review-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.review-tag-correct {
+  background: rgba(16, 185, 129, 0.2);
+  color: #059669;
+}
+
+.review-tag-your-correct {
+  background: rgba(102, 126, 234, 0.2);
+  color: #4f46e5;
+}
+
+.review-tag-your-wrong {
+  background: rgba(239, 68, 68, 0.2);
+  color: #dc2626;
+}
+
+/* Responsive review */
+@media (max-width: 575.98px) {
+  .review-question-card {
+    padding: 1rem;
+  }
+
+  .review-question-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .review-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .review-option-badges {
+    width: 100%;
+  }
 }

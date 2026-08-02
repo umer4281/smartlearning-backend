@@ -81,7 +81,7 @@ const deleteUser = async (req, res) => {
 
     // Also clean up user's resources, test results etc.
     await Resource.deleteMany({ uploadedBy: req.params.id });
-    await TestResult.deleteMany({ user: req.params.id });
+    await TestResult.deleteMany({ student: req.params.id });
 
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
@@ -94,7 +94,7 @@ const deleteUser = async (req, res) => {
 const getAllTestResults = async (req, res) => {
   try {
     const results = await TestResult.find({})
-      .populate('user', 'name email')
+      .populate('student', 'name email')
       .populate('test', 'title')
       .sort({ createdAt: -1 });
     res.json(results);

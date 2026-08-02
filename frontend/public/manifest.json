@@ -1,7 +1,7 @@
 {
   "short_name": "UM Smart",
   "name": "UM Smart Online Learning App",
-  "description": "An interactive online education platform for learning Quran, Hadith, Fiqh, and more",
+  "description": "An interactive online education platform for learning Hadith, Fiqh, and more",
   "icons": [
     {
       "src": "favicon.ico",

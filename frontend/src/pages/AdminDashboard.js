@@ -73,27 +73,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleDeleteResource = async (resourceId) => {
-    if (!window.confirm('Delete this resource?')) return;
-    try {
-      await adminAPI.deleteResource(resourceId);
-      setTestResults(testResults.filter(r => r._id !== resourceId));
-      alert('Resource deleted');
-    } catch (err) {
-      alert('Failed to delete resource');
-    }
-  };
-
-  const handleDeleteTest = async (testId) => {
-    if (!window.confirm('Delete this test? All related results will also be removed.')) return;
-    try {
-      await adminAPI.deleteTest(testId);
-      alert('Test deleted');
-    } catch (err) {
-      alert('Failed to delete test');
-    }
-  };
-
   if (!isAdmin) {
     return <Navigate to="/dashboard" />;
   }
@@ -104,15 +83,19 @@ const AdminDashboard = () => {
     { id: 'results', label: '📝 Test Results', icon: 'bi-clipboard-data' },
   ];
 
+  const getScoreColor = (percentage) => {
+    if (percentage >= 80) return 'success';
+    if (percentage >= 60) return 'warning';
+    return 'danger';
+  };
+
   return (
     <div className="container mt-4">
       <div className="row mb-4">
         <div className="col-12">
-          <div className="card bg-dark text-white">
-            <div className="card-body">
-              <h2>⚙️ Admin Dashboard</h2>
-              <p className="mb-0">Welcome, {user?.name}. Manage the platform from here.</p>
-            </div>
+          <div className="admin-dashboard-header">
+            <h2>⚙️ Admin Dashboard</h2>
+            <p>Welcome, {user?.name}. Manage the platform from here.</p>
           </div>
         </div>
       </div>
@@ -151,7 +134,7 @@ const AdminDashboard = () => {
             <div>
               <div className="row">
                 <div className="col-md-3 mb-3">
-                  <div className="card text-white bg-primary h-100">
+                  <div className="card admin-stat-card text-white bg-primary h-100">
                     <div className="card-body text-center">
                       <h1 className="display-4">{stats.totalUsers}</h1>
                       <h6>Total Users</h6>
@@ -159,7 +142,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
                 <div className="col-md-3 mb-3">
-                  <div className="card text-white bg-success h-100">
+                  <div className="card admin-stat-card text-white bg-success h-100">
                     <div className="card-body text-center">
                       <h1 className="display-4">{stats.totalStudents}</h1>
                       <h6>Students</h6>
@@ -167,7 +150,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
                 <div className="col-md-3 mb-3">
-                  <div className="card text-white bg-warning h-100">
+                  <div className="card admin-stat-card text-white bg-warning h-100">
                     <div className="card-body text-center">
                       <h1 className="display-4">{stats.totalTeachers}</h1>
                       <h6>Teachers</h6>
@@ -175,7 +158,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
                 <div className="col-md-3 mb-3">
-                  <div className="card text-white bg-info h-100">
+                  <div className="card admin-stat-card text-white bg-info h-100">
                     <div className="card-body text-center">
                       <h1 className="display-4">{stats.totalAdmins}</h1>
                       <h6>Admins</h6>
@@ -311,18 +294,15 @@ const AdminDashboard = () => {
                       ) : (
                         testResults.map(r => (
                           <tr key={r._id}>
-                            <td>{r.user?.name || 'Unknown'} <span className="text-muted small">({r.user?.email})</span></td>
+                            <td>{r.student?.name || 'Unknown'} <span className="text-muted small">({r.student?.email})</span></td>
                             <td>{r.test?.title || 'Unknown Test'}</td>
-                            <td>{r.score} / {r.total}</td>
+                            <td>{r.score} / {r.totalPoints}</td>
                             <td>
-                              <span className={`badge ${
-                                (r.score / r.total) >= 0.8 ? 'bg-success' :
-                                (r.score / r.total) >= 0.6 ? 'bg-warning text-dark' : 'bg-danger'
-                              }`}>
-                                {Math.round((r.score / r.total) * 100)}%
+                              <span className={`badge bg-${getScoreColor(r.percentage)}`}>
+                                {r.percentage}%
                               </span>
                             </td>
-                            <td className="text-muted small">{new Date(r.createdAt).toLocaleString()}</td>
+                            <td className="text-muted small">{new Date(r.submittedAt).toLocaleString()}</td>
                           </tr>
                         ))
                       )}

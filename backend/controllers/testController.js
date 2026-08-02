@@ -63,6 +63,20 @@ const submitTest = async (req, res) => {
       return res.status(404).json({ message: 'Test not found' });
     }
 
+    // Check if student has already submitted this test
+    const existingResult = await TestResult.findOne({
+      test: test._id,
+      student: req.user._id,
+    });
+
+    if (existingResult) {
+      return res.status(400).json({
+        message: 'You have already submitted this test. You cannot submit it again.',
+        alreadySubmitted: true,
+        existingResult,
+      });
+    }
+
     // Calculate score
     let score = 0;
     let totalPoints = 0;

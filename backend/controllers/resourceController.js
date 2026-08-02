@@ -1,6 +1,4 @@
 const Resource = require('../models/Resource');
-const path = require('path');
-const fs = require('fs');
 
 // Helper: auto-detect category from MIME type
 const detectCategory = (mimeType) => {
@@ -24,7 +22,7 @@ const uploadResource = async (req, res) => {
       title: req.body.title || req.file.originalname,
       description: req.body.description || '',
       fileName: req.file.originalname,
-      filePath: req.file.path,
+      fileData: req.file.buffer,
       fileType: req.file.mimetype,
       fileSize: req.file.size,
       category: detectCategory(req.file.mimetype),
@@ -47,6 +45,7 @@ const getResources = async (req, res) => {
     }
 
     const resources = await Resource.find(filter)
+      .select('-fileData') // Don't send file data in list responses
       .populate('uploadedBy', 'name email')
       .sort('-createdAt');
     res.json(resources);
@@ -63,11 +62,6 @@ const deleteResource = async (req, res) => {
 
     if (!resource) {
       return res.status(404).json({ message: 'Resource not found' });
-    }
-
-    // Delete file from server
-    if (fs.existsSync(resource.filePath)) {
-      fs.unlinkSync(resource.filePath);
     }
 
     await resource.deleteOne();
@@ -87,7 +81,13 @@ const downloadResource = async (req, res) => {
       return res.status(404).json({ message: 'Resource not found' });
     }
 
-    res.download(resource.filePath, resource.fileName);
+    if (!resource.fileData) {
+      return res.status(404).json({ message: 'File data not found' });
+    }
+
+    res.setHeader('Content-Type', resource.fileType);
+    res.setHeader('Content-Disposition', `attachment; filename="${resource.fileName}"`);
+    res.send(resource.fileData);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -103,21 +103,19 @@ const previewResource = async (req, res) => {
       return res.status(404).json({ message: 'Resource not found' });
     }
 
-    // Check file exists
-    if (!fs.existsSync(resource.filePath)) {
-      return res.status(404).json({ message: 'File not found on server' });
+    if (!resource.fileData) {
+      return res.status(404).json({ message: 'File data not found' });
     }
 
     // Set inline content disposition so browser shows it instead of downloading
-    const ext = path.extname(resource.fileName).toLowerCase();
+    const ext = require('path').extname(resource.fileName).toLowerCase();
     const imageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg'];
     const isInline = imageExts.includes(ext) || resource.fileType === 'application/pdf';
 
     if (isInline) {
       res.setHeader('Content-Disposition', `inline; filename="${resource.fileName}"`);
       res.setHeader('Content-Type', resource.fileType);
-      const fileStream = fs.createReadStream(resource.filePath);
-      fileStream.pipe(res);
+      res.send(resource.fileData);
     } else {
       // For non-previewable files, redirect to download
       res.redirect(`/api/resources/${resource._id}/download`);

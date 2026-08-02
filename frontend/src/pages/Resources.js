@@ -366,6 +366,68 @@ const Resources = () => {
               </div>
             )}
 
+            {/* PDF Gallery - show when 'all' or 'pdf' is selected */}
+            {(!activeCategory || activeCategory === 'pdf') && filteredResources.filter((r) => r.category === 'pdf').length > 0 && (
+              <div className="mb-4">
+                <h5 className="section-subtitle">
+                  <span>📄 PDF Documents</span>
+                  <span className="badge bg-secondary ms-2">
+                    {filteredResources.filter((r) => r.category === 'pdf').length}
+                  </span>
+                </h5>
+                <div className="pdf-gallery-grid">
+                  {filteredResources
+                    .filter((r) => r.category === 'pdf')
+                    .map((resource) => (
+                      <div
+                        key={resource._id}
+                        className="pdf-gallery-card"
+                        onClick={() => openPreview(resource)}
+                      >
+                        <div className="pdf-gallery-thumb">
+                          <div className="pdf-thumb-icon">📄</div>
+                          <div className="pdf-thumb-glow"></div>
+                          <div className="pdf-gallery-overlay">
+                            <span className="pdf-view-icon">📖 Read</span>
+                          </div>
+                        </div>
+                        <div className="pdf-gallery-info">
+                          <h6 className="pdf-gallery-title">{resource.title}</h6>
+                          {resource.description && (
+                            <p className="pdf-gallery-desc">{resource.description}</p>
+                          )}
+                          <div className="pdf-gallery-meta">
+                            <span className="pdf-gallery-size">{formatFileSize(resource.fileSize)}</span>
+                            <button
+                              className="pdf-gallery-download"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDownload(resource._id, resource.fileName);
+                              }}
+                              title="Download"
+                            >
+                              📥 Save
+                            </button>
+                          </div>
+                        </div>
+                        {canManage && (
+                          <button
+                            className="gallery-delete-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDelete(resource._id);
+                            }}
+                            title="Delete"
+                          >
+                            🗑️
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+
             {/* All resources in card/list view */}
             <h5 className="section-subtitle mb-3">
               <span>{activeCategory ? CATEGORIES.find((c) => c.value === activeCategory)?.icon : '📋'} All Resources</span>
@@ -406,7 +468,7 @@ const Resources = () => {
                             className="btn btn-primary btn-sm me-1"
                             onClick={() => openPreview(resource)}
                           >
-                            👁️ Preview
+                            {resource.category === 'pdf' ? '📖 Read' : '👁️ View'}
                           </button>
                         ) : (
                           <button
@@ -416,14 +478,12 @@ const Resources = () => {
                             📥 Download
                           </button>
                         )}
-                        {resource.category !== 'image' && (
-                          <button
-                            className="btn btn-outline-secondary btn-sm me-1"
-                            onClick={() => handleDownload(resource._id, resource.fileName)}
-                          >
-                            📥 Save
-                          </button>
-                        )}
+                        <button
+                          className="btn btn-outline-secondary btn-sm me-1"
+                          onClick={() => handleDownload(resource._id, resource.fileName)}
+                        >
+                          📥 Save
+                        </button>
                         {canManage && (
                           <button
                             className="btn btn-danger btn-sm"

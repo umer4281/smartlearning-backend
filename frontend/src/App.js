@@ -9,7 +9,6 @@ import Classroom from './pages/Classroom';
 import Resources from './pages/Resources';
 import Tests from './pages/Tests';
 import Games from './pages/Games';
-import QuranReading from './pages/QuranReading';
 import AdminDashboard from './pages/AdminDashboard';
 
 // Protected Route Component
@@ -38,7 +37,6 @@ const Home = () => {
   const { user } = useAuth();
 
   const subjects = [
-    { name: 'Quran', desc: 'Recitation, Tajweed & Memorization', icon: '📖', image: '/images/quran.jpg' },
     { name: 'Hadith', desc: 'Prophetic Traditions & Sunnah', icon: '📜', image: '/images/hadith.jpg' },
     { name: 'Fiqh', desc: 'Islamic Jurisprudence & Rulings', icon: '⚖️', image: '/images/fiqh.jpg' },
     { name: 'Sirah', desc: 'Life & Biography of Prophet Muhammad', icon: '🌙', image: '/images/sirah.jpg' },
@@ -60,7 +58,7 @@ const Home = () => {
 
   const steps = [
     { number: '01', title: 'Create Account', desc: 'Sign up for free in minutes', icon: '✨' },
-    { number: '02', title: 'Choose Subject', desc: 'Pick from Quran, Hadith, Fiqh & more', icon: '📖' },
+    { number: '02', title: 'Choose Subject', desc: 'Pick from Hadith, Fiqh, Sirah & more', icon: '📖' },
     { number: '03', title: 'Start Learning', desc: 'Join live classes & access resources', icon: '🚀' },
     { number: '04', title: 'Track Progress', desc: 'Take tests & play educational games', icon: '📈' },
   ];
@@ -84,7 +82,7 @@ const Home = () => {
                   <span className="hero-title-line hero-title-accent"> in The Smart Way</span>
                 </h1>
                 <p className="hero-desc">
-                  An interactive Islamic education platform for students. Master Quran, Hadith, Fiqh, and Sirah through live classes, resources, tests, and games — all in one place.
+                  An interactive Islamic education platform for students. Master Hadith, Fiqh, and Sirah through live classes, resources, tests, and games — all in one place.
                 </p>
                 <div className="hero-actions">
                   {!user ? (
@@ -139,10 +137,6 @@ const Home = () => {
                     <div className="hero-card-title">Islamic Knowledge</div>
                     <div className="hero-card-items">
                       <div className="hero-card-item">
-                        <span className="hci-icon">📖</span>
-                        <span>Quran Recitation</span>
-                      </div>
-                      <div className="hero-card-item">
                         <span className="hci-icon">📜</span>
                         <span>Hadith Studies</span>
                       </div>
@@ -155,7 +149,7 @@ const Home = () => {
                         <span>Prophet's Sirah</span>
                       </div>
                     </div>
-                    <div className="hero-card-badge">4 Subjects</div>
+                    <div className="hero-card-badge">3 Subjects</div>
                   </div>
                 </div>
 
@@ -300,7 +294,7 @@ const Home = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Begin Your Journey?</h2>
-            <p>Join hundreds of students learning Quran, Hadith, Fiqh, and Sirah online</p>
+            <p>Join hundreds of students learning Hadith, Fiqh, and Sirah online</p>
             {!user ? (
               <Link to="/register" className="btn btn-cta">
                 <span>Create Free Account</span>
@@ -399,14 +393,6 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <Games />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/quran"
-          element={
-            <ProtectedRoute>
-              <QuranReading />
             </ProtectedRoute>
           }
         />

@@ -14,7 +14,10 @@ const resourceSchema = new mongoose.Schema({
   },
   filePath: {
     type: String,
-    required: true,
+  },
+  // File data stored directly in MongoDB so files persist on ephemeral filesystems (e.g. Render)
+  fileData: {
+    type: Buffer,
   },
   fileType: {
     type: String,

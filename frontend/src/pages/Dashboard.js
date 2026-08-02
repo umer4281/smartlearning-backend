@@ -6,7 +6,6 @@ const Dashboard = () => {
   const { user, isTeacher, isAdmin } = useAuth();
 
   const subjects = [
-    { name: 'Quran', image: '/images/quran.jpg', color: '#1a5276' },
     { name: 'Hadith', image: '/images/hadith.jpg', color: '#1e8449' },
     { name: 'Fiqh', image: '/images/fiqh.jpg', color: '#b7950b' },
     { name: 'Sirah', image: '/images/sirah.jpg', color: '#922b21' },
@@ -62,7 +61,7 @@ const Dashboard = () => {
         {features.map((feature, index) => (
           <div className="col-md-6 col-lg-3 mb-4 fade-in-up" key={index}>
             <Link to={feature.link} style={{ textDecoration: 'none' }}>
-              <div className="dashboard-card">
+              <div className="dashboard-card" style={{ '--card-gradient': feature.gradient }}>
                 <div className="icon">{feature.icon}</div>
                 <h5>{feature.title}</h5>
                 <p>{feature.desc}</p>
